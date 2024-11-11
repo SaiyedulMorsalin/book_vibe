@@ -1,0 +1,1 @@
+ACCOUNT_TYPE =('Author','General User','Student')
