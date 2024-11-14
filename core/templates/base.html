@@ -1,20 +1,165 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete Responsive Online Book Store Design Website Tutorial</title>
+
+    <!-- Tailwind CSS CDN -->
     
-  </title>
-</head>
-<body>
-  <div class="container mx-auto">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+   
+
+    <!-- Font Awesome CDN link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header class="bg-white shadow">
+      <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="#" class="text-2xl font-bold text-gray-800 flex items-center">
+          <i class="fas fa-book text-blue-500 mr-2"></i>
+          Book Vibes
+        </a>
+
+        <form
+          action=""
+          class="flex items-center bg-gray-200 rounded-lg overflow-hidden"
+        >
+          <input
+            type="text"
+            id="search-box"
+            placeholder="Search for books..."
+            class="px-4 py-2 bg-gray-200 outline-none"
+          />
+          <button class="px-4 text-gray-600">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+
+        <div class="flex items-center space-x-6">
+          <button id="search-btn" class="text-gray-600 text-xl">
+            <i class="fas fa-search"></i>
+          </button>
+          <a href="#" class="text-gray-600 text-xl"><i class="fas fa-heart"></i></a>
+          <a href="#" class="text-gray-600 text-xl"><i class="fas fa-shopping-cart"></i></a>
+          <div id="login-btn" class="text-gray-600 text-xl flex gap-3">
+            
+            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser  %}
+            <a href={% url 'register' %}> <i class="fa-solid fa-book"></i></a>
+            {% endif %}
+            <a href={% url 'user_logout' %}> <i class="fa-solid fa-user-minus"></i></i></a>
+            {% else %}
+            <a href={% url 'user_login' %}> <i class="fa-solid fa-user"></i></a>
+            <a href={% url 'register' %}> <i class="fa-solid fa-user-plus"></i></a>
+            {% endif %}
+            
+              
+           
+              
+          
+          </div>
+        </div>
+      </div>
+
+      <!-- Navbar links -->
+      <nav class="bg-blue-600">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-center space-x-8">
+          <a href="{% url 'home_page' %}" class="text-white font-medium hover:text-gray-200">Home</a>
+          <a href="#" class="text-white font-medium hover:text-gray-200">Featured</a>
+          <a href="#" class="text-white font-medium hover:text-gray-200">Arrival</a>
+          <a href="#" class="text-white font-medium hover:text-gray-200">Reviews</a>
+          <a href="#" class="text-white font-medium hover:text-gray-200">Contact</a>
+          <a href="#" class="text-white font-medium hover:text-gray-200">Old Book Feature</a>
+          
+          {% if request.user.id_authenticated %}
+          <a href="{% url 'user_profile' request.user.username %}" class="text-white font-medium hover:text-gray-200">Profile</a>
+          {% endif %}
+            
+          
+        </div>
+      </nav>
+    </header>
+
+    <!-- Content block for Django templates -->
     
-    {% block main_content %}
-        
-    {% endblock main_content %}
-        
-  </div>
-</body>
+    {% if messages %}
+
+    
+    {% for m in messages %}
+    <div role="alert" class="alert alert-success w-1/4 mx-auto mt-3">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>{{m}}</span>
+    </div>
+    {% endfor %}
+      
+      
+    {% endif %}
+      
+    <div class="container mx-auto">
+      {% block main_content %} 
+      {% endblock %}
+    </div>
+
+
+
+
+
+
+
+    <footer class="footer bg-base-200 text-base-content p-10 mt-5">
+      <nav>
+        <h6 class="footer-title">Services</h6>
+        <a class="link link-hover">Branding</a>
+        <a class="link link-hover">Design</a>
+        <a class="link link-hover">Marketing</a>
+        <a class="link link-hover">Advertisement</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Company</h6>
+        <a class="link link-hover">About us</a>
+        <a class="link link-hover">Contact</a>
+        <a class="link link-hover">Jobs</a>
+        <a class="link link-hover">Press kit</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Legal</h6>
+        <a class="link link-hover">Terms of use</a>
+        <a class="link link-hover">Privacy policy</a>
+        <a class="link link-hover">Cookie policy</a>
+      </nav>
+      <form>
+        <h6 class="footer-title">Newsletter</h6>
+        <fieldset class="form-control w-80">
+          <label class="label">
+            <span class="label-text">Enter your email address</span>
+          </label>
+          <div class="join">
+            <input
+              type="text"
+              placeholder="username@site.com"
+              class="input input-bordered join-item" />
+            <button class="btn btn-primary join-item">Subscribe</button>
+          </div>
+        </fieldset>
+      </form>
+    </footer>
+  </body>
 </html>
